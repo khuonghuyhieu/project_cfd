@@ -8,7 +8,9 @@ export default function FormOperate() {
 	let [content, setContent] = useState('');
 
 	function onSubmit() {
-		console.log(name);
+		// if(){
+		// 	console.log(name);
+		// }
 		console.log(phone);
 		console.log(email);
 		console.log(web);
