@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 export function Header() {
 	return (
 		<div>
@@ -42,23 +45,23 @@ export function Header() {
 			<nav className="nav">
 				<ul>
 					<li className="li_login">
-						<a href="#">Đăng nhập</a>
-						<a href="#">Đăng ký</a>
+						<Link href="#">Đăng nhập</Link>
+						<Link href="#">Đăng ký</Link>
 					</li>
-					<li className="active">
-						<a href="#">Trang chủ</a>
-					</li>
-					<li>
-						<a href="#">CFD Team</a>
+					<li clLinkssNLinkme="Linkctive">
+						<Link href="#">TrLinkng chủ</Link>
 					</li>
 					<li>
-						<a href="#">Khóa Học</a>
+						<Link href="#">CFD TeLinkm</Link>
 					</li>
 					<li>
-						<a href="#">Dự Án</a>
+						<Link href="#">KhóLink Học</Link>
 					</li>
 					<li>
-						<a href="#">Liên hệ</a>
+						<Link href="#">Dự Án</Link>
+					</li>
+					<li>
+						<Link href="#">Liên hệ</Link>
 					</li>
 				</ul>
 			</nav>
