@@ -1,0 +1,29 @@
+.register-course {
+	.wrap {
+		label {
+			flex-wrap: wrap;
+		}
+	}
+}
+.profile {
+	.tab {
+		.tab-content {
+			.tab1 {
+				label {
+					flex-wrap: wrap;
+				}
+			}
+		}
+	}
+}
+.error_text {
+	color: red;
+	font-family: initial;
+	font-style: italic;
+	font-size: 13px;
+	width: 100% !important;
+	margin-left: 180px;
+}
+.tab-margin {
+	margin-left: 160px;
+}

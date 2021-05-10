@@ -33,20 +33,20 @@ export default function FormOperate() {
 			errorOjb.name = 'Name là bắt buộc';
 		}
 
-		if (form.phone.trim() && !/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
-			errorOjb.phone('Phone không đúng định dạng');
+		if (form.phone.trim() && !/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
+			errorOjb.phone = 'Phone không đúng định dạng';
 		}
 
 		if (!form.email.trim()) {
 			errorOjb.email = 'Email là bắt buộc';
-		} else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
+		} else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
 			errorOjb.email = 'Email không đúng định dạng';
 		}
 
 		if (
 			form.web.trim() &&
 			!/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
-				form.web.trim()
+				form.web
 			)
 		) {
 			errorOjb.web = 'URL không đúng định dạng';
@@ -58,11 +58,9 @@ export default function FormOperate() {
 		if (!form.content.trim()) {
 			errorOjb.content = 'Nội dung là bắt buộc';
 		}
-
+		setError(errorOjb);
 		if (Object.keys(errorOjb).length === 0) {
 			console.log(form);
-		} else {
-			setError(errorOjb);
 		}
 	}
 

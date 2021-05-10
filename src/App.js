@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './assets/style/custom.scss';
+
 import { Header, Footer } from './component';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
