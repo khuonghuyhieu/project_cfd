@@ -1,6 +1,6 @@
 import PopupLogin from '../../component/PopupLogin';
 
-function ThanhToan() {
+function Payment() {
 	return (
 		<main className="paypage" id="main">
 			<PopupLogin />
@@ -67,4 +67,4 @@ function ThanhToan() {
 	);
 }
 
-export default ThanhToan;
+export default Payment;

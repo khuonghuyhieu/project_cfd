@@ -14,10 +14,10 @@ import Page404 from './page/404page';
 import Detail from './page/detail';
 import Email from './page/email';
 import Faq from './page/faq';
-import Coin from './page/gioi-thieu-coin';
-import KhoaHoc from './page/khoa-hoc';
+import Coin from './page/introduce-coin';
+import Course from './page/course';
 import Team from './page/team';
-import ThanhToan from './page/thanh-toan';
+import Payment from './page/payment';
 import Project from './page/project';
 
 // import Header from "./component/Header";
@@ -32,9 +32,9 @@ function App() {
 				{/* cắt components từng trang bằng router */}
 				<Switch>
 					<Route path="/projects" component={Project} />
-					<Route path="/thanhtoan" component={ThanhToan} />
+					<Route path="/payment" component={Payment} />
 					<Route path="/team" component={Team} />
-					<Route path="/khoahoc" component={KhoaHoc} />
+					<Route path="/course" component={Course} />
 					<Route path="/coin" component={Coin} />
 					<Route path="/faq" component={Faq} />
 					<Route path="/email" component={Email} />

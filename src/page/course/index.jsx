@@ -1,6 +1,6 @@
 import PopupLogin from '../../component/PopupLogin';
 
-function KhoaHoc() {
+function Course() {
 	return (
 		<main className="homepage" id="main">
 			<PopupLogin />
@@ -234,4 +234,4 @@ function KhoaHoc() {
 	);
 }
 
-export default KhoaHoc;
+export default Course;

@@ -1,15 +1,64 @@
 import React from 'react';
 import reactDOM from 'react-dom';
+import { useState } from 'react';
 
 function PopupLogin() {
+	let [form, setForm] = useState({
+		email: '',
+		account: '',
+		pass: '',
+	});
+
+	let [error, setError] = useState({
+		email: '',
+		account: '',
+	});
+
+	function OnSubmit() {
+		let errorOjb = {};
+
+		if (!form.account.trim()) {
+			errorOjb.account = 'Account là bắt buộc';
+		}
+
+		if (!form.email.trim()) {
+			errorOjb.email = 'Email là bắt buộc';
+		} else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
+			errorOjb.email = 'Email không đúng định dạng';
+		}
+
+		setError(errorOjb);
+		if (Object.keys(errorOjb).length === 0) {
+			console.log(form);
+			//call AIP
+		}
+	}
+
+	function InPutChange(e) {
+		let name = e.target.name;
+		let value = e.target.value;
+
+		setForm({
+			...form,
+			[name]: value,
+		});
+	}
+
 	return reactDOM.createPortal(
 		<div className="popup-form popup-login" style={{ display: 'none' }}>
 			<div className="wrap">
 				{/* login-form */}
 				<div className="ct_login" style={{ display: 'block' }}>
 					<h2 className="title">Đăng nhập</h2>
-					<input type="text" placeholder="Email / Số điện thoại" />
-					<input type="password" placeholder="Mật khẩu" />
+					<input
+						value={form.account}
+						name="account"
+						onChange={InPutChange}
+						type="text"
+						placeholder="Email / Số điện thoại"
+					/>
+					{error.account && <p className="error_text">{error.account}</p>}
+					<input value={form.pass} name="pass" type="password" placeholder="Mật khẩu" />
 					<div className="remember">
 						<label className="btn-remember">
 							<div>
@@ -38,8 +87,17 @@ function PopupLogin() {
 				{/* email form */}
 				<div className="ct_email">
 					<h2 className="title">Đặt lại mật khẩu</h2>
-					<input type="text" placeholder="Email" />
-					<div className="btn rect main btn-next">Tiếp theo</div>
+					<input
+						value={form.email}
+						name="email"
+						onChange={InPutChange}
+						type="text"
+						placeholder="Email"
+					/>
+					{error.email && <p className="error_text">{error.email}</p>}
+					<div onClick={OnSubmit} className="btn rect main btn-next">
+						Tiếp theo
+					</div>
 					<div className="back" />
 					<div className="close">
 						<img src="img/close-icon.png" alt="" />
