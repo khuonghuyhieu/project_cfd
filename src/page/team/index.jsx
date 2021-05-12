@@ -1,6 +1,9 @@
+import PopupLogin from '../../component/PopupLogin';
+
 function Team() {
 	return (
 		<main className="team" id="main">
+			<PopupLogin />
 			<section>
 				<div className="container">
 					<div className="top">

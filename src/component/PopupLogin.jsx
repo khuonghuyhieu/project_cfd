@@ -47,7 +47,7 @@ function PopupLogin() {
 				</div>
 			</div>
 		</div>,
-		document.body
+		document.getElementById('root1')
 	);
 }
 export default PopupLogin;

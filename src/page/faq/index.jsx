@@ -1,6 +1,9 @@
+import PopupLogin from '../../component/PopupLogin';
+
 function Faq() {
 	return (
 		<main className="faqpage" id="main">
+			<PopupLogin />
 			<div className="container">
 				<section>
 					<h2 className="main-title">Câu hỏi thường gặp</h2>

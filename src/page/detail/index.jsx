@@ -1,8 +1,10 @@
 import React from 'react';
+import PopupLogin from '../../component/PopupLogin';
 
 function Detail(props) {
 	return (
 		<React.Fragment>
+			<PopupLogin />
 			<main className="course-detail" id="main">
 				<section className="banner style2" style={{ '--background': '#cde6fb' }}>
 					<div className="container">

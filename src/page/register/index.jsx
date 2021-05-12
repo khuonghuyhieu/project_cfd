@@ -1,8 +1,10 @@
 import FormRegister from './component/FormRegister';
+import PopupLogin from '../../component/PopupLogin';
 
 export default function Register() {
 	return (
 		<main className="register-course" id="main">
+			<PopupLogin />
 			<section>
 				<div className="container">
 					<div className="wrap container">

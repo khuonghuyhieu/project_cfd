@@ -1,6 +1,9 @@
+import PopupLogin from '../../component/PopupLogin';
+
 function KhoaHoc() {
 	return (
 		<main className="homepage" id="main">
+			<PopupLogin />
 			<section className="section-1">
 				<div className="container">
 					<h2 className="main-title">KHÓA HỌC CFD</h2>

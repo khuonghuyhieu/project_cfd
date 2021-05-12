@@ -11,7 +11,7 @@ import Operate from './page/co-operate';
 import Register from './page/register';
 import Profile from './page/profile';
 import Page404 from './page/404page';
-import Detail from './page/detaile';
+import Detail from './page/detail';
 import Email from './page/email';
 import Faq from './page/faq';
 import Coin from './page/gioi-thieu-coin';
@@ -38,7 +38,7 @@ function App() {
 					<Route path="/coin" component={Coin} />
 					<Route path="/faq" component={Faq} />
 					<Route path="/email" component={Email} />
-					<Route path="/detaile" component={Detail} />
+					<Route path="/detail" component={Detail} />
 					<Route path="/profile" component={Profile} />
 					<Route path="/co-operate" component={Operate} />
 					<Route path="/register" component={Register} />

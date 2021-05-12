@@ -1,6 +1,9 @@
+import PopupLogin from '../../component/PopupLogin';
+
 function ThanhToan() {
 	return (
 		<main className="paypage" id="main">
+			<PopupLogin />
 			<div className="container">
 				<section>
 					<h2 className="main-title">thanh toán</h2>

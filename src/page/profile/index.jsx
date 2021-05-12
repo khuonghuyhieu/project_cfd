@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PopupLogin from '../../component/PopupLogin';
 
 export default function Profile() {
 	let [form, setForm] = useState({
@@ -40,7 +41,7 @@ export default function Profile() {
 		}
 
 		if (!form.linkSkype.trim()) {
-			errorOjb.linkSkype = 'Link Skype là bắt buộc=';
+			errorOjb.linkSkype = 'Link Skype là bắt buộc';
 		}
 
 		setError(errorOjb);
@@ -61,6 +62,7 @@ export default function Profile() {
 
 	return (
 		<main className="profile" id="main">
+			<PopupLogin />
 			<section>
 				<div className="top-info">
 					<div className="avatar">

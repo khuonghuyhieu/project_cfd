@@ -1,6 +1,9 @@
+import PopupLogin from '../../component/PopupLogin';
+
 function Email() {
 	return (
 		<div className="container">
+			<PopupLogin />
 			<div
 				className="emailform"
 				style={{
