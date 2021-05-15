@@ -35,10 +35,14 @@ export function Header() {
 								<a href="#">Đăng xuất</a>
 							</div>
 						</div>
-						{/* <div class="not-login bg-none">
-              <a href="#" class="btn-register">Đăng nhập</a>
-              <a href="login.html" class="btn main btn-open-login">Đăng ký</a>
-          </div> */}
+						<div class="not-login bg-none">
+							<a href="#" class="btn-register">
+								Đăng nhập
+							</a>
+							<a href="#" class="btn main btn-open-login">
+								Đăng ký
+							</a>
+						</div>
 					</div>
 				</div>
 			</header>

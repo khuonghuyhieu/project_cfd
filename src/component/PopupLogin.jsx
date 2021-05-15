@@ -14,6 +14,11 @@ function PopupLogin() {
 		account: '',
 	});
 
+	function InPutClose() {
+		// document.getElementById('root1').style.display = 'none';
+		console.log('1');
+	}
+
 	function OnSubmit() {
 		let errorOjb = {};
 
@@ -43,9 +48,8 @@ function PopupLogin() {
 			[name]: value,
 		});
 	}
-
 	return reactDOM.createPortal(
-		<div className="popup-form popup-login" style={{ display: 'none' }}>
+		<div className="popup-form popup-login">
 			<div className="wrap">
 				{/* login-form */}
 				<div className="ct_login" style={{ display: 'block' }}>
@@ -80,7 +84,7 @@ function PopupLogin() {
 							Google
 						</div>
 					</div>
-					<div className="close">
+					<div onClick={InPutClose} className="close">
 						<img src="img/close-icon.png" alt="" />
 					</div>
 				</div>
