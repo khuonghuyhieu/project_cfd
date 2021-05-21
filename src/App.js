@@ -31,12 +31,19 @@ function App() {
 				<Header />
 				{/* cắt components từng trang bằng router */}
 				<Switch>
+					{/* cách 1 */}
 					<Route path="/projects" component={Project} />
 					<Route path="/payment" component={Payment} />
 					<Route path="/team" component={Team} />
-					<Route path="/course" component={Course} />
+					{/* cách 2 */}
+					{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
 					<Route path="/coin" component={Coin} />
-					<Route path="/faq" component={Faq} />
+					<Route path="/course" component={Course}/>
+					{/* cách 3 */}
+					{/* <Route path="/faq" >
+						<Faq />
+					</Route > */}
+					<Route path="/faq" component={Faq}/>
 					<Route path="/email" component={Email} />
 					<Route path="/detail" component={Detail} />
 					<Route path="/profile" component={Profile} />
