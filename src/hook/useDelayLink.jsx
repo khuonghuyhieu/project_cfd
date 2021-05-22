@@ -9,7 +9,9 @@ function useDelayLink() {
 		// console.log(href);
 		setTimeout(() => {
 			history.push(href);
-		}, 1000);
+		});
+
+		document.body.classList.remove('menu-is-show');
 	}
 	return delayLink;
 }

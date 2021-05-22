@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useFormValidate from '../../../hook/useFormValidate';
 export default function FormOperate() {
 	// let [name, setName] = useState('');
 	// let [phone, setPhone] = useState('');
@@ -7,73 +8,101 @@ export default function FormOperate() {
 	// let [title, setTitle] = useState('');
 	// let [content, setContent] = useState('');
 
-	let [form, setForm] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		web: '',
-		title: '',
-		content: '',
-	});
+	// let [form, setForm] = useState({
+	// 	name: '',
+	// 	phone: '',
+	// 	email: '',
+	// 	web: '',
+	// 	title: '',
+	// 	content: '',
+	// });
 
-	let [error, setError] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		web: '',
-		title: '',
-		content: '',
-	});
+	// let [error, setError] = useState({
+	// 	name: '',
+	// 	phone: '',
+	// 	email: '',
+	// 	web: '',
+	// 	title: '',
+	// 	content: '',
+	// });
+
+	let { form, error, InputChange, check } = useFormValidate(
+		{
+			name: '',
+			phone: '',
+			email: '',
+			website: '',
+			title: '',
+			content: '',
+		},
+		{
+			rule: {
+				name: {
+					required: true,
+				},
+				phone: {
+					required: true,
+					pattern: 'phone',
+				},
+				email: {
+					required: true,
+					pattern: 'email',
+				},
+				website: {
+					pattern: 'url',
+				},
+				title: {
+					required: true,
+				},
+				content: {
+					required: true,
+				},
+			},
+			message: {
+				name: {
+					required: 'Họ và tên không đươc để trống',
+				},
+				phone: {
+					required: 'Số điện thoại không được để trống',
+					pattern: 'Số điện thoại phải là số điện thoại Việt Nam',
+				},
+				email: {
+					required: 'Email không được để trống',
+					pattern: 'Email phải đầy đủ cú pháp',
+				},
+				website: {
+					pattern: 'Url phải đầy đủ cú pháp',
+				},
+				title: {
+					required: 'Tiêu đề không được để trống',
+				},
+				content: {
+					required: 'Nội dung không được để trống',
+				},
+			},
+		}
+	);
 
 	function onSubmit() {
-		form.name.trim().replace(/ +/g, ' '); // ????
+		// form.name.trim().replace(/ +/g, ' '); // ????
 
-		let errorOjb = {};
-		if (!form.name.trim()) {
-			errorOjb.name = 'Name là bắt buộc';
-		}
-
-		if (form.phone.trim() && !/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
-			errorOjb.phone = 'Phone không đúng định dạng';
-		}
-
-		if (!form.email.trim()) {
-			errorOjb.email = 'Email là bắt buộc';
-		} else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
-			errorOjb.email = 'Email không đúng định dạng';
-		}
-
-		if (
-			form.web.trim() &&
-			!/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
-				form.web
-			)
-		) {
-			errorOjb.web = 'URL không đúng định dạng';
-		}
-
-		if (!form.title.trim()) {
-			errorOjb.title = 'Tiêu đề là bắt buộc';
-		}
-		if (!form.content.trim()) {
-			errorOjb.content = 'Nội dung là bắt buộc';
-		}
-		setError(errorOjb);
+		let errorOjb = check();
+		// setError(errorOjb);
 		if (Object.keys(errorOjb).length === 0) {
 			console.log(form);
 		}
 	}
 
-	function InPutOnChange(e) {
-		// console.log(e.target.   name or value);
-		let name = e.target.name;
-		let value = e.target.value;
+	// function InPutOnChange(e) {
+	// 	// console.log(e.target.   name or value);
+	// 	let name = e.target.name;
+	// 	let value = e.target.value;
 
-		setForm({
-			...form,
-			[name]: value,
-		});
-	}
+	// 	setForm({
+	// 		...form,
+	// 		[name]: value,
+	// 	});
+	// }
 
 	return (
 		<div className="form">
@@ -86,7 +115,7 @@ export default function FormOperate() {
 					name="name"
 					value={form.name}
 					onChange={
-						InPutOnChange
+						InputChange
 						/*(e) =>
 						// setName(e.target.value);
 						setForm({ ...form, name: e.target.value })*/
@@ -103,7 +132,7 @@ export default function FormOperate() {
 					name="phone"
 					value={form.phone}
 					onChange={
-						InPutOnChange
+						InputChange
 						/*(e) =>
 						// setPhone(e.target.value);
 						// setForm({ ...form, phone: e.target.value })*/
@@ -122,7 +151,7 @@ export default function FormOperate() {
 					name="email"
 					value={form.email}
 					onChange={
-						InPutOnChange
+						InputChange
 						/*(e) =>
 						// setEmail(e.target.value);
 						setForm({ ...form, email: e.target.value })*/
@@ -139,7 +168,7 @@ export default function FormOperate() {
 					name="web"
 					value={form.web}
 					onChange={
-						InPutOnChange
+						InputChange
 						/*(e) =>
 						// setWeb(e.target.value);
 						setForm({ ...form, web: e.target.value })*/
@@ -158,7 +187,7 @@ export default function FormOperate() {
 					name="title"
 					value={form.title}
 					onChange={
-						InPutOnChange
+						InputChange
 						/*(e) =>
 						// setTitle(e.target.value);
 						setForm({ ...form, title: e.target.value })*/
@@ -177,7 +206,7 @@ export default function FormOperate() {
 					name="content"
 					value={form.content}
 					onChange={
-						InPutOnChange
+						InputChange
 						/*(e) =>
 						// setContent(e.target.value);
 						setForm({ ...form, content: e.target.value })*/

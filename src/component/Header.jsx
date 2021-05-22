@@ -7,7 +7,11 @@ export function Header() {
 		document.body.classList.toggle('menu-is-show');
 	}
 	// sử dụng hook để làm loading
-	// let delayLink = useDelayLink(); // --> onclick cái biến vào thẻ link.
+	let delayLink = useDelayLink(); // --> onclick cái biến vào thẻ link.
+
+	function overlayClick() {
+		document.body.classList.remove('menu-is-show');
+	}
 
 	return (
 		<div>
@@ -21,7 +25,7 @@ export function Header() {
 						</div>
 						<span className="text">menu</span>
 					</div>
-					<Link to="/" className="logo">
+					<Link to="/" className="logo" onClick={delayLink}>
 						<img src="img/logo.svg" alt="" />
 						<h1>CFD</h1>
 					</Link>
@@ -60,23 +64,33 @@ export function Header() {
 						<Link to="/register">Đăng ký </Link>
 					</li>
 					<li className="active">
-						<Link to="/">Trang chủ</Link>
+						<Link onClick={delayLink} to="/">
+							Trang chủ
+						</Link>
 					</li>
 					<li>
-						<Link to="/team">CFD Team</Link>
+						<Link onClick={delayLink} to="/team">
+							CFD Team
+						</Link>
 					</li>
 					<li>
-						<Link to="/course">Khóa Học</Link>
+						<Link onClick={delayLink} to="/course">
+							Khóa Học
+						</Link>
 					</li>
 					<li>
-						<Link to="/projects">Dự Án</Link>
+						<Link onClick={delayLink} to="/projects">
+							Dự Án
+						</Link>
 					</li>
 					<li>
-						<Link to="/co-operate">Liên hệ</Link>
+						<Link onClick={delayLink} to="/co-operate">
+							Liên hệ
+						</Link>
 					</li>
 				</ul>
 			</nav>
-			<div className="overlay_nav" />
+			<div className="overlay_nav" onClick={overlayClick} />
 		</div>
 	);
 }
