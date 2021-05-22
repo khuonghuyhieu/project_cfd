@@ -15,7 +15,7 @@ function PopupLogin() {
 	});
 
 	function InPutClose() {
-		// document.getElementById('root1').style.display = 'none';
+		document.getElementById('root1').style.display = 'none';
 		console.log('1');
 	}
 

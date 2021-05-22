@@ -5,14 +5,25 @@ import MyCoin from './component/MyCoin';
 import MyCourse from './component/MyCourse';
 import PaymentHistory from './component/PaymentHistory';
 import Projected from './component/Projected';
+import { Route, Switch, NavLink, useRouteMatch, Redirect } from 'react-router-dom';
 
 export default function Profile() {
-	let [tabActive, setTabActive] = useState(0);
+	// viết tab trong react
+	// let [tabActive, setTabActive] = useState(0);
 
-	function setTab(e, index) {
-		e.preventDefault();
-		setTabActive(index);
-	}
+	let { path } = useRouteMatch();
+
+	// viết tab trong react
+	// function setTab(e, index) {
+	// 	e.preventDefault();
+	// 	setTabActive(index);
+	// }
+
+	//vd Redireact
+	// let login = true; //or false
+	// if (!login) return <Redirect path="/" />;
+
+	// <Redirect path="/" />;
 
 	return (
 		<main className="profile" id="main">
@@ -30,39 +41,23 @@ export default function Profile() {
 				<div className="container">
 					<div className="tab">
 						<div className="tab-title">
-							<a href="#" className={tabActive === 0 ? 'active' : ''} onClick={(e) => setTab(e, 0)}>
+							<NavLink exact to={`${path}`}>
 								Thông tin tài khoản
-							</a>
-							<a href="#" className={tabActive === 1 ? 'active' : ''} onClick={(e) => setTab(e, 1)}>
-								Khóa học của bạn
-							</a>
-							<a href="#" className={tabActive === 2 ? 'active' : ''} onClick={(e) => setTab(e, 2)}>
-								Dự án đã làm
-							</a>
-							<a href="#" className={tabActive === 3 ? 'active' : ''} onClick={(e) => setTab(e, 3)}>
-								Lịch sử thanh toán
-							</a>
-							<a href="#" className={tabActive === 4 ? 'active' : ''} onClick={(e) => setTab(e, 4)}>
-								Quản lý COIN của tôi
-							</a>
+							</NavLink>
+							<NavLink to={`${path}/mycourse`}>Khóa học của bạn</NavLink>
+							<NavLink to={`${path}/projected`}>Dự án đã làm</NavLink>
+							<NavLink to={`${path}/paymenthistory`}>Lịch sử thanh toán</NavLink>
+							<NavLink to={`${path}/mycoin`}>Quản lý COIN của tôi</NavLink>
 						</div>
 						<div className="tab-content">
-							{tabActive === 0 ? (
-								<Info />
-							) : tabActive === 1 ? (
-								<MyCourse />
-							) : tabActive === 2 ? (
-								<Projected />
-							) : tabActive === 3 ? (
-								<PaymentHistory />
-							) : (
-								<MyCoin />
-							)}
-							{/* <Info />
-							<MyCourse />
-							<Projected />
-							<PaymentHistory />
-							<MyCoin /> */}
+							{/* Router lồng */}
+							<Switch>
+								<Route path={`${path}/mycourse`} component={MyCourse} />
+								<Route path={`${path}/projected`} component={Projected} />
+								<Route path={`${path}/paymenthistory`} component={PaymentHistory} />
+								<Route path={`${path}/mycoin`} component={MyCoin} />
+								<Route component={Info} />
+							</Switch>
 						</div>
 					</div>
 				</div>

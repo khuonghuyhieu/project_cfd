@@ -38,14 +38,15 @@ function App() {
 					{/* cách 2 */}
 					{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
 					<Route path="/coin" component={Coin} />
-					<Route path="/course" component={Course}/>
+					<Route path="/course" component={Course} />
 					{/* cách 3 */}
 					{/* <Route path="/faq" >
 						<Faq />
 					</Route > */}
-					<Route path="/faq" component={Faq}/>
+					<Route path="/faq" component={Faq} />
 					<Route path="/email" component={Email} />
-					<Route path="/detail" component={Detail} />
+					{/* /:slug */}
+					<Route path="/detail/:slug" component={Detail} />
 					<Route path="/profile" component={Profile} />
 					<Route path="/co-operate" component={Operate} />
 					<Route path="/register" component={Register} />

@@ -1,7 +1,15 @@
 import React from 'react';
+import { useParams, useRouteMatch } from 'react-router';
 import PopupLogin from '../../component/PopupLogin';
 
 function Detail(props) {
+	let param = useParams();
+
+	console.log('param: ', param);
+
+	let routeMatch = useRouteMatch();
+	console.log('routeMatch: ', routeMatch);
+
 	return (
 		<React.Fragment>
 			<PopupLogin />

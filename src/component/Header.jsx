@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import useDelayLink from '../hook/useDelayLink';
 
 export function Header() {
 	function navMenu() {
 		document.body.classList.toggle('menu-is-show');
 	}
+	// sử dụng hook để làm loading
+	// let delayLink = useDelayLink(); // --> onclick cái biến vào thẻ link.
 
 	return (
 		<div>
@@ -34,9 +37,9 @@ export function Header() {
 							</div>
 							<div className="hamberger"></div>
 							<div className="sub">
-								<a href="#">Khóa học của tôi</a>
-								<a href="#">Thông tin tài khoản</a>
-								<a href="#">Đăng xuất</a>
+								<Link to="/profile/mycourse">Khóa học của tôi</Link>
+								<Link to="/profile">Thông tin tài khoản</Link>
+								<Link to="#">Đăng xuất</Link>
 							</div>
 						</div>
 						<div class="not-login bg-none">
@@ -69,7 +72,7 @@ export function Header() {
 						<Link to="/projects">Dự Án</Link>
 					</li>
 					<li>
-						<Link to="#">Liên hệ</Link>
+						<Link to="/co-operate">Liên hệ</Link>
 					</li>
 				</ul>
 			</nav>

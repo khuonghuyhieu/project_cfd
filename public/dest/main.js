@@ -234,9 +234,9 @@ $(document).ready(function () {
     $(".select sub").fadeOut(200);
   });
 
-  $(".menu-hambeger").on("click", function () {
-    $("body").toggleClass("menu-is-show");
-  });
+  // $(".menu-hambeger").on("click", function () {
+  //   $("body").toggleClass("menu-is-show");
+  // });
 
   $("#header nav ul").on("click", function (e) {
     e.stopPropagation();
