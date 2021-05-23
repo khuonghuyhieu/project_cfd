@@ -1,5 +1,26 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import useFormValidate from '../../../hook/useFormValidate';
+
+function reducer(state, action) {
+	switch (action.type) {
+		case 'INPUT_CHANGE':
+			return {
+				...state,
+				form: {
+					...state.form,
+					...action.payload,
+				},
+			};
+		case 'SET_ERROR':
+			return {
+				...state,
+				error: action.payload,
+			};
+	}
+
+	return state;
+}
+
 export default function FormOperate() {
 	// let [name, setName] = useState('');
 	// let [phone, setPhone] = useState('');
@@ -26,83 +47,145 @@ export default function FormOperate() {
 	// 	content: '',
 	// });
 
-	let { form, error, InputChange, check } = useFormValidate(
-		{
+	let [state, dispatch] = useReducer(reducer, {
+		form: {
 			name: '',
 			phone: '',
 			email: '',
-			website: '',
+			web: '',
 			title: '',
 			content: '',
 		},
-		{
-			rule: {
-				name: {
-					required: true,
-				},
-				phone: {
-					required: true,
-					pattern: 'phone',
-				},
-				email: {
-					required: true,
-					pattern: 'email',
-				},
-				website: {
-					pattern: 'url',
-				},
-				title: {
-					required: true,
-				},
-				content: {
-					required: true,
-				},
-			},
-			message: {
-				name: {
-					required: 'Họ và tên không đươc để trống',
-				},
-				phone: {
-					required: 'Số điện thoại không được để trống',
-					pattern: 'Số điện thoại phải là số điện thoại Việt Nam',
-				},
-				email: {
-					required: 'Email không được để trống',
-					pattern: 'Email phải đầy đủ cú pháp',
-				},
-				website: {
-					pattern: 'Url phải đầy đủ cú pháp',
-				},
-				title: {
-					required: 'Tiêu đề không được để trống',
-				},
-				content: {
-					required: 'Nội dung không được để trống',
-				},
-			},
-		}
-	);
+		error: {
+			name: '',
+			phone: '',
+			email: '',
+			web: '',
+			title: '',
+			content: '',
+		},
+	});
+
+	// let { form, error, InputChange, check } = useFormValidate(
+	// 	{
+	// 		name: '',
+	// 		phone: '',
+	// 		email: '',
+	// 		website: '',
+	// 		title: '',
+	// 		content: '',
+	// 	},
+	// 	{
+	// 		rule: {
+	// 			name: {
+	// 				required: true,
+	// 			},
+	// 			phone: {
+	// 				required: true,
+	// 				pattern: 'phone',
+	// 			},
+	// 			email: {
+	// 				required: true,
+	// 				pattern: 'email',
+	// 			},
+	// 			website: {
+	// 				pattern: 'url',
+	// 			},
+	// 			title: {
+	// 				required: true,
+	// 			},
+	// 			content: {
+	// 				required: true,
+	// 			},
+	// 		},
+	// 		message: {
+	// 			name: {
+	// 				required: 'Họ và tên không đươc để trống',
+	// 			},
+	// 			phone: {
+	// 				required: 'Số điện thoại không được để trống',
+	// 				pattern: 'Số điện thoại phải là số điện thoại Việt Nam',
+	// 			},
+	// 			email: {
+	// 				required: 'Email không được để trống',
+	// 				pattern: 'Email phải đầy đủ cú pháp',
+	// 			},
+	// 			website: {
+	// 				pattern: 'Url phải đầy đủ cú pháp',
+	// 			},
+	// 			title: {
+	// 				required: 'Tiêu đề không được để trống',
+	// 			},
+	// 			content: {
+	// 				required: 'Nội dung không được để trống',
+	// 			},
+	// 		},
+	// 	}
+	// );
 
 	function onSubmit() {
 		// form.name.trim().replace(/ +/g, ' '); // ????
+		let errorOjb = {};
+		if (!form.name.trim()) {
+			errorOjb.name = 'Name là bắt buộc';
+		}
 
-		let errorOjb = check();
+		if (form.phone.trim() && !/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
+			errorOjb.phone = 'Phone không đúng định dạng';
+		}
+
+		if (!form.email.trim()) {
+			errorOjb.email = 'Email là bắt buộc';
+		} else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
+			errorOjb.email = 'Email không đúng định dạng';
+		}
+
+		if (
+			form.web.trim() &&
+			!/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(
+				form.web
+			)
+		) {
+			errorOjb.web = 'URL không đúng định dạng';
+		}
+
+		if (!form.title.trim()) {
+			errorOjb.title = 'Tiêu đề là bắt buộc';
+		}
+		if (!form.content.trim()) {
+			errorOjb.content = 'Nội dung là bắt buộc';
+		}
+		//check()
+
 		// setError(errorOjb);
+		dispatch({
+			type: 'SET_ERROR',
+			payload: errorOjb,
+		});
 		if (Object.keys(errorOjb).length === 0) {
 			console.log(form);
 		}
 	}
 
-	// function InPutOnChange(e) {
-	// 	// console.log(e.target.   name or value);
-	// 	let name = e.target.name;
-	// 	let value = e.target.value;
+	function InputChange(e) {
+		// console.log(e.target.   name or value);
+		let name = e.target.name;
+		let value = e.target.value;
 
-	// 	setForm({
-	// 		...form,
-	// 		[name]: value,
-	// 	});
-	// }
+		dispatch({
+			type: 'INPUT_CHANGE',
+			payload: {
+				[name]: value,
+			},
+		});
+
+		// setForm({
+		// 	...form,
+		// 	[name]: value,
+		// });
+	}
+
+	let { form, error } = state;
 
 	return (
 		<div className="form">

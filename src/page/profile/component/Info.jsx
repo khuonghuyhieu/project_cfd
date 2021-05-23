@@ -1,62 +1,56 @@
 import React from 'react';
 import { useState } from 'react';
+import useFormValidate from '../../../hook/useFormValidate';
 function Info() {
-	let [form, setForm] = useState({
-		name: '',
-		phone: '',
-		linkFb: '',
-		linkSkype: '',
-	});
-
-	let [error, setError] = useState({
-		name: '',
-		phone: '',
-		linkFb: '',
-		linkSkype: '',
-	});
+	let { form, error, InputChange, check } = useFormValidate(
+		{
+			name: '',
+			phone: '',
+			fb: '',
+			sk: '',
+		},
+		{
+			rule: {
+				name: {
+					required: true,
+				},
+				phone: {
+					required: true,
+					pattern: 'phone',
+				},
+				fb: {
+					required: true,
+					pattern: 'fb',
+				},
+				sk: {
+					required: true,
+				},
+			},
+			message: {
+				name: {
+					required: 'Họ và tên không được để trống',
+				},
+				phone: {
+					required: 'Phone không được để trống',
+					pattern: 'Số điện thoại phải là số Việt Nam',
+				},
+				fb: {
+					required: 'Link facebook không được để trống',
+					pattern: 'Link facebook không đúng định dạng',
+				},
+				sk: {
+					required: 'Link Skype không được để trống',
+				},
+			},
+		}
+	);
 
 	function OnSubmit() {
-		let errorOjb = {};
+		let errorOjb = check();
 
-		if (!form.name.trim()) {
-			errorOjb.name = 'Họ và Tên là bắt buộc';
-		}
-
-		if (!form.phone.trim()) {
-			errorOjb.phone = 'Phone là bắt buộc';
-		} else if (form.phone.trim() && !/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
-			errorOjb.phone = 'Phone không đúng định dạng';
-		}
-
-		if (!form.linkFb.trim()) {
-			errorOjb.linkFb = 'Link Facebook là bắt buộc';
-		} else if (
-			form.linkFb.trim() &&
-			!/(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i.test(
-				form.linkFb
-			)
-		) {
-			errorOjb.linkFb = 'Link Facebook không đúng định dạng';
-		}
-
-		if (!form.linkSkype.trim()) {
-			errorOjb.linkSkype = 'Link Skype là bắt buộc';
-		}
-
-		setError(errorOjb);
-		if (Object.keys.length === 0) {
+		if (Object.keys(errorOjb).length === 0) {
 			console.log(form);
 		}
-	}
-
-	function InPutOnChange(e) {
-		let name = e.target.name;
-		let value = e.target.value;
-
-		setForm({
-			...form,
-			[name]: value,
-		});
 	}
 
 	return (
@@ -68,7 +62,7 @@ function Info() {
 				<input
 					name="name"
 					value={form.name}
-					onChange={InPutOnChange}
+					onChange={InputChange}
 					type="text"
 					placeholder="Nguyễn Văn A"
 				/>
@@ -81,7 +75,7 @@ function Info() {
 				<input
 					name="phone"
 					value={form.phone}
-					onChange={InPutOnChange}
+					onChange={InputChange}
 					type="text"
 					placeholder="0949******"
 				/>
@@ -94,7 +88,7 @@ function Info() {
 				<input
 					name="email"
 					value={form.email}
-					onChange={InPutOnChange}
+					onChange={InputChange}
 					defaultValue="vuong.dang@dna.vn"
 					disabled
 					type="text"
@@ -106,26 +100,26 @@ function Info() {
 					Facebook<span>*</span>
 				</p>
 				<input
-					name="linkFb"
-					value={form.linkFb}
-					onChange={InPutOnChange}
+					name="fb"
+					value={form.fb}
+					onChange={InputChange}
 					type="text"
 					placeholder="Facebook url"
 				/>
-				{error.linkFb && <p className="error_text tab-margin">{error.linkFb}</p>}
+				{error.fb && <p className="error_text tab-margin">{error.fb}</p>}
 			</label>
 			<label>
 				<p>
 					Skype<span>*</span>
 				</p>
 				<input
-					name="linkSkype"
-					value={form.linkSkype}
-					onChange={InPutOnChange}
+					name="sk"
+					value={form.sk}
+					onChange={InputChange}
 					type="text"
 					placeholder="Skype url"
 				/>
-				{error.linkSkype && <p className="error_text tab-margin">{error.linkSkype}</p>}
+				{error.sk && <p className="error_text tab-margin">{error.sk}</p>}
 			</label>
 			<div onClick={OnSubmit} className="btn main rect">
 				LƯU LẠI

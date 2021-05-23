@@ -1,69 +1,60 @@
 import { useState } from 'react';
+import useFormValidate from '../../../hook/useFormValidate';
 
 export default function FormRegister() {
-	let [form, setForm] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		linkFb: '',
-		opinion: '',
-		check: '',
-	});
-
-	let [error, setError] = useState({
-		name: '',
-		phone: '',
-		email: '',
-		linkFb: '',
-		opinion: '',
-		check: '',
-	});
+	let { form, error, InputChange, check } = useFormValidate(
+		{
+			name: '',
+			phone: '',
+			email: '',
+			fb: '',
+			coin: false,
+			payment: 'chuyen-khoan',
+		},
+		{
+			rule: {
+				name: {
+					required: true,
+				},
+				phone: {
+					required: true,
+					pattern: 'phone',
+				},
+				email: {
+					required: true,
+					pattern: 'email',
+				},
+				fb: {
+					required: true,
+					pattern: 'fb',
+				},
+			},
+			message: {
+				name: {
+					required: 'Họ và tên không để trống',
+				},
+				phone: {
+					required: 'Phone không để trống',
+					pattern: 'Phone phải là số Việt Nam',
+				},
+				email: {
+					required: 'Email không được để trống',
+					pattern: 'Email không đủ hoặc đúng cú pháp',
+				},
+				fb: {
+					required: 'Link Facebook không để trống',
+					pattern: 'Link facebook không đúng cú pháp',
+				},
+			},
+		}
+	);
 
 	function OnSubmit() {
-		let errorOjb = {};
+		let errorOjb = check();
 
-		if (!form.name.trim()) {
-			errorOjb.name = 'Họ và Tên là bắt buộc';
-		}
-
-		if (!form.phone.trim()) {
-			errorOjb.phone = 'Số điện thoại là bắt buộc';
-		} else if (form.phone.trim() && !/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
-			errorOjb.phone = 'Phone không đúng định dạng';
-		}
-
-		if (!form.email.trim()) {
-			errorOjb.email = 'Email là bắt buộc';
-		} else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
-			errorOjb.email = 'Email không đúng định dạng';
-		}
-
-		if (!form.linkFb.trim()) {
-			errorOjb.linkFb = 'Link Facebook là bắt buộc';
-		} else if (
-			!/(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i.test(
-				form.linkFb
-			)
-		) {
-			errorOjb.linkFb = 'Link Facebook không đúng định dạng';
-		}
-
-		setError(errorOjb);
 		if (Object.keys(errorOjb).length === 0) {
 			console.log(form);
 		}
-	}
-
-	function InputOnchange(e) {
-		let name = e.target.name;
-		let value = e.target.value;
-		// let checked = e.target.checked;
-		setForm({
-			...form,
-			[name]: value,
-			// [name]: checked,
-			// [checked]: value,
-		});
 	}
 
 	return (
@@ -75,7 +66,7 @@ export default function FormRegister() {
 				<input
 					value={form.name}
 					name="name"
-					onChange={InputOnchange}
+					onChange={InputChange}
 					type="text"
 					placeholder="Họ và tên bạn"
 				/>
@@ -89,7 +80,7 @@ export default function FormRegister() {
 				<input
 					value={form.phone}
 					name="phone"
-					onChange={InputOnchange}
+					onChange={InputChange}
 					type="text"
 					placeholder="Số điện thoại"
 				/>
@@ -102,7 +93,7 @@ export default function FormRegister() {
 				<input
 					value={form.email}
 					name="email"
-					onChange={InputOnchange}
+					onChange={InputChange}
 					type="text"
 					placeholder="Email của bạn"
 				/>
@@ -113,13 +104,13 @@ export default function FormRegister() {
 					URL Facebook<span>*</span>
 				</p>
 				<input
-					value={form.linkFb}
-					name="linkFb"
-					onChange={InputOnchange}
+					value={form.fb}
+					name="fb"
+					onChange={InputChange}
 					type="text"
 					placeholder="https://facebook.com"
 				/>
-				{error.linkFb && <p className="error_text">{error.linkFb}</p>}
+				{error.fb && <p className="error_text">{error.fb}</p>}
 			</label>
 			<label className="disable">
 				<p>Sử dụng COIN</p>
@@ -130,7 +121,7 @@ export default function FormRegister() {
 					<input
 						value={form.check}
 						name="check"
-						onChange={InputOnchange}
+						onChange={InputChange}
 						type="checkbox"
 						defaultChecked="checked"
 					/>
@@ -152,7 +143,7 @@ export default function FormRegister() {
 				<input
 					value={form.opinion}
 					name="opinion"
-					onChange={InputOnchange}
+					onChange={InputChange}
 					type="text"
 					placeholder="Mong muốn cá nhân và lịch bạn có thể học."
 				/>

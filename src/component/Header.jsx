@@ -88,6 +88,11 @@ export function Header() {
 							Liên hệ
 						</Link>
 					</li>
+					<li>
+						<Link onClick={delayLink} to="/demo">
+							CountDown
+						</Link>
+					</li>
 				</ul>
 			</nav>
 			<div className="overlay_nav" onClick={overlayClick} />

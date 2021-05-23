@@ -3,7 +3,8 @@ import { useState } from 'react';
 let emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i,
 	phonePattern = /(84|0[3|5|7|8|9])+([0-9]{8})\b/i,
 	urlPattern =
-		/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i;
+		/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i,
+	fbPattern = /^(?:http(s)?:\/\/)?www.facebook.com\/[\w.-]+$/i;
 
 function useFormValidate(initialForm, validate) {
 	let [form, setForm] = useState(initialForm);
@@ -37,9 +38,10 @@ function useFormValidate(initialForm, validate) {
 				if (pattern === 'email') pattern = emailPattern;
 				if (pattern === 'phone') pattern = phonePattern;
 				if (pattern === 'url') pattern = urlPattern;
+				if (pattern === 'fb') pattern = fbPattern;
 
 				if (!pattern?.test(form[i])) {
-					errorOjb[i] = m?.pattern || 'Trường này không đúng định';
+					errorOjb[i] = m?.pattern || 'Trường này không đúng định dạng';
 				}
 			}
 		}

@@ -19,6 +19,7 @@ import Course from './page/course';
 import Team from './page/team';
 import Payment from './page/payment';
 import Project from './page/project';
+import Demo from './page/CountDown';
 
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
@@ -50,6 +51,7 @@ function App() {
 					<Route path="/profile" component={Profile} />
 					<Route path="/co-operate" component={Operate} />
 					<Route path="/register" component={Register} />
+					<Route path="/demo" component={Demo} />
 					<Route exact path="/" component={Home} />
 					<Route component={Page404} />
 				</Switch>
