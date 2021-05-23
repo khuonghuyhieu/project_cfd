@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; //có thể {creatContext}
 
 import './assets/style/custom.scss';
 
@@ -24,40 +24,51 @@ import Demo from './page/CountDown';
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
 
+export let Context = React.createContext();
+
 function App() {
+	let login = {
+		name: 'Khương Huy Hiếu',
+		avatar: 'img/screenshot_1615217950.png',
+	};
+
 	return (
-		<BrowserRouter>
-			<div className="App">
-				{/* chia Header những trang dưới có thể dống v khi không sài cái thư viên react-router-dom */}
-				<Header />
-				{/* cắt components từng trang bằng router */}
-				<Switch>
-					{/* cách 1 */}
-					<Route path="/projects" component={Project} />
-					<Route path="/payment" component={Payment} />
-					<Route path="/team" component={Team} />
-					{/* cách 2 */}
-					{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
-					<Route path="/coin" component={Coin} />
-					<Route path="/course" component={Course} />
-					{/* cách 3 */}
-					{/* <Route path="/faq" >
+		<Context.Provider value={{ login }}>
+			<BrowserRouter>
+				<div className="App">
+					{/* chia Header những trang dưới có thể dống v khi không sài cái thư viên react-router-dom */}
+					<Header />
+					{/* cắt components từng trang bằng router */}
+					<Switch>
+						{/* cách 1 */}
+						<Route path="/projects" component={Project} />
+						<Route path="/payment" component={Payment} />
+						<Route path="/team" component={Team} />
+						{/* cách 2 */}
+						{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
+						<Route path="/coin" component={Coin} />
+						<Route path="/course" component={Course} />
+						{/* cách 3 */}
+						{/* <Route path="/faq" >
 						<Faq />
 					</Route > */}
-					<Route path="/faq" component={Faq} />
-					<Route path="/email" component={Email} />
-					{/* /:slug */}
-					<Route path="/detail/:slug" component={Detail} />
-					<Route path="/profile" component={Profile} />
-					<Route path="/co-operate" component={Operate} />
-					<Route path="/register" component={Register} />
-					<Route path="/demo" component={Demo} />
-					<Route exact path="/" component={Home} />
-					<Route component={Page404} />
-				</Switch>
-				<Footer />
-			</div>
-		</BrowserRouter>
+						<Route path="/faq" component={Faq} />
+						<Route path="/email" component={Email} />
+						{/* /:slug */}
+						<Route path="/detail/:slug" component={Detail} />
+						<Route path="/profile">
+							<Profile />
+						</Route>
+						<Route path="/co-operate" component={Operate} />
+						<Route path="/register" component={Register} />
+						<Route path="/demo" component={Demo} />
+						<Route exact path="/" component={Home} />
+						<Route component={Page404} />
+					</Switch>
+					<Footer />
+				</div>
+			</BrowserRouter>
+		</Context.Provider>
 	);
 }
 

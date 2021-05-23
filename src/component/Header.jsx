@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
+import { Context } from '../App';
 import useDelayLink from '../hook/useDelayLink';
 
 export function Header() {
@@ -12,6 +13,13 @@ export function Header() {
 	function overlayClick() {
 		document.body.classList.remove('menu-is-show');
 	}
+
+	// let login = {
+	// 	name: 'Khương Huy Hiếu',
+	// 	avatar: 'img/screenshot_1615217950.png',
+	// };
+
+	let value = useContext(Context);
 
 	return (
 		<div>
@@ -33,9 +41,9 @@ export function Header() {
 						<div className="have-login">
 							<div className="account">
 								<Link to="/profile" className="info">
-									<div className="name">Trần Lê Trọng Nghĩa</div>
+									<div className="name">{value.login.name}</div>
 									<div className="avatar">
-										<img src="img/avt.png" alt="" />
+										<img src={value.login.avatar} alt="" />
 									</div>
 								</Link>
 							</div>

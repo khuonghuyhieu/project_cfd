@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PopupLogin from '../../component/PopupLogin';
 import Info from './component/Info';
 import MyCoin from './component/MyCoin';
@@ -6,6 +6,8 @@ import MyCourse from './component/MyCourse';
 import PaymentHistory from './component/PaymentHistory';
 import Projected from './component/Projected';
 import { Route, Switch, NavLink, useRouteMatch, Redirect } from 'react-router-dom';
+import TopInfo from './component/TopInfo';
+import { Context } from '../../App';
 
 export default function Profile() {
 	// viết tab trong react
@@ -21,23 +23,22 @@ export default function Profile() {
 
 	//vd Redireact
 	// let login = true; //or false
-	// if (!login) return <Redirect path="/" />;
 
 	// <Redirect path="/" />;
+	// let login = {
+	// 	name: 'Khương Huy Hiếu',
+	// 	avatar: 'img/screenshot_1615217950.png',
+	// };
+
+	let value = useContext(Context);
+
+	if (!value.login) return <Redirect path="/" />;
 
 	return (
 		<main className="profile" id="main">
 			<PopupLogin />
 			<section>
-				<div className="top-info">
-					<div className="avatar">
-						{/* <span class="text">H</span> */}
-						<img src="img/avatar-lg.png" alt="" />
-						<div className="camera" />
-					</div>
-					<div className="name">trần nghĩa</div>
-					<p className="des">Thành viên của team CFD1-OFFLINE</p>
-				</div>
+				<TopInfo />
 				<div className="container">
 					<div className="tab">
 						<div className="tab-title">
