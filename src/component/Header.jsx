@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import { Context } from '../App';
+import useAuth from '../hook/useAuth';
 import useDelayLink from '../hook/useDelayLink';
 
 export function Header() {
@@ -19,7 +19,7 @@ export function Header() {
 	// 	avatar: 'img/screenshot_1615217950.png',
 	// };
 
-	let value = useContext(Context);
+	let { login, handleLogout } = useAuth();
 
 	return (
 		<div>
@@ -38,30 +38,41 @@ export function Header() {
 						<h1>CFD</h1>
 					</Link>
 					<div className="right">
-						<div className="have-login">
-							<div className="account">
-								<Link to="/profile" className="info">
-									<div className="name">{value.login.name}</div>
-									<div className="avatar">
-										<img src={value.login.avatar} alt="" />
-									</div>
-								</Link>
+						{login ? (
+							<div className="have-login">
+								<div className="account">
+									<Link to="/profile" className="info">
+										<div className="name">{login.name}</div>
+										<div className="avatar">
+											<img src={login.avatar} alt="" />
+										</div>
+									</Link>
+								</div>
+								<div className="hamberger"></div>
+								<div className="sub">
+									<Link to="/profile">Trang cá nhân</Link>
+									<Link to="/profile/mycourse">Khóa học của tôi</Link>
+									<Link
+										to="#"
+										onClick={(e) => {
+											e.preventDefault();
+											handleLogout();
+										}}
+									>
+										Đăng xuất
+									</Link>
+								</div>
 							</div>
-							<div className="hamberger"></div>
-							<div className="sub">
-								<Link to="/profile/mycourse">Khóa học của tôi</Link>
-								<Link to="/profile">Thông tin tài khoản</Link>
-								<Link to="#">Đăng xuất</Link>
+						) : (
+							<div class="not-login bg-none">
+								<a href="#" class="btn-register">
+									Đăng nhập
+								</a>
+								<a href="#" class="btn main btn-open-login">
+									Đăng ký
+								</a>
 							</div>
-						</div>
-						<div class="not-login bg-none">
-							<a href="#" class="btn-register">
-								Đăng nhập
-							</a>
-							<a href="#" class="btn main btn-open-login">
-								Đăng ký
-							</a>
-						</div>
+						)}
 					</div>
 				</div>
 			</header>

@@ -7,7 +7,7 @@ import PaymentHistory from './component/PaymentHistory';
 import Projected from './component/Projected';
 import { Route, Switch, NavLink, useRouteMatch, Redirect } from 'react-router-dom';
 import TopInfo from './component/TopInfo';
-import { Context } from '../../App';
+import useAuth from '../../hook/useAuth';
 
 export default function Profile() {
 	// viết tab trong react
@@ -30,9 +30,9 @@ export default function Profile() {
 	// 	avatar: 'img/screenshot_1615217950.png',
 	// };
 
-	let value = useContext(Context);
+	// let { login } = useAuth();
 
-	if (!value.login) return <Redirect path="/" />;
+	// if (!login) return <Redirect path="/" />;
 
 	return (
 		<main className="profile" id="main">

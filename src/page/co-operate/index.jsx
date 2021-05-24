@@ -1,4 +1,3 @@
-import PopupLogin from '../../component/PopupLogin';
 import FormOperate from './component/FormOperate';
 
 export default function Operate() {
@@ -10,7 +9,6 @@ export default function Operate() {
 					Đừng ngần ngại liên hệ với <strong>CFD</strong> để cùng nhau tạo ra những sản phẩm giá
 					trị, cũng như việc hợp tác với các đối tác tuyển dụng và công ty trong và ngoài nước.
 				</p>
-				<PopupLogin />
 				<FormOperate />
 			</section>
 		</main>

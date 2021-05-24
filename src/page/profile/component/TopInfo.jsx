@@ -1,18 +1,16 @@
-import { useContext } from 'react';
-
-import { Context } from './../../../App';
+import useAuth from '../../../hook/useAuth';
 
 function TopInfo() {
-	let value = useContext(Context);
+	let { login } = useAuth();
 
 	return (
 		<div className="top-info">
 			<div className="avatar">
 				{/* <span class="text">H</span> */}
-				<img src={value.login.avatar} alt="" />
+				<img src={login.avatar} alt="" />
 				<div className="camera" />
 			</div>
-			<div className="name">{value.login.name}</div>
+			<div className="name">{login.name}</div>
 			<p className="des">Thành viên của team CFD1-OFFLINE</p>
 		</div>
 	);

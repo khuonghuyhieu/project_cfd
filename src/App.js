@@ -1,4 +1,4 @@
-import React from 'react'; //có thể {creatContext}
+import React, { useEffect, useState } from 'react'; //có thể {creatContext}
 
 import './assets/style/custom.scss';
 
@@ -20,6 +20,8 @@ import Team from './page/team';
 import Payment from './page/payment';
 import Project from './page/project';
 import Demo from './page/CountDown';
+import PopupLogin from './component/PopupLogin';
+import PrivateRouter from './component/PrivateRouter';
 
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
@@ -27,17 +29,58 @@ import Demo from './page/CountDown';
 export let Context = React.createContext();
 
 function App() {
-	let login = {
-		name: 'Khương Huy Hiếu',
-		avatar: 'img/screenshot_1615217950.png',
-	};
+	// let login = {
+	// 	name: 'Khương Huy Hiếu',
+	// 	avatar: 'img/screenshot_1615217950.png',
+	// };
+
+	let [state, setState] = useState({
+		// login: false,
+		login: JSON.parse(localStorage.getItem('login')),
+	});
+
+	useEffect(() => {
+		localStorage.setItem('login', JSON.stringify(state.login));
+	}, [state.login]);
+
+	function handleLogin(username, password) {
+		if (username === 'admin@gmail.com' && password === '123456') {
+			setState({
+				...state,
+				login: {
+					name: 'Khương Huy Hiếu',
+					avatar: 'img/screenshot_1615217950.png',
+				},
+			});
+
+			// localStorage.setItem(
+			// 	'login',
+			// 	JSON.stringify({
+			// 		name: 'Khương Huy Hiếu',
+			// 		avatar: 'img/screenshot_1615217950.png',
+			// 	})
+			// );
+		} else {
+			return 'Sai thông tin đăng nhập';
+		}
+	}
+
+	function handleLogout() {
+		setState({
+			...state,
+			login: false,
+		});
+
+		// localStorage.setItem('login', false);
+	}
 
 	return (
-		<Context.Provider value={{ login }}>
+		<Context.Provider value={{ ...state, handleLogin, handleLogout }}>
 			<BrowserRouter>
 				<div className="App">
 					{/* chia Header những trang dưới có thể dống v khi không sài cái thư viên react-router-dom */}
 					<Header />
+					<PopupLogin />
 					{/* cắt components từng trang bằng router */}
 					<Switch>
 						{/* cách 1 */}
@@ -56,9 +99,7 @@ function App() {
 						<Route path="/email" component={Email} />
 						{/* /:slug */}
 						<Route path="/detail/:slug" component={Detail} />
-						<Route path="/profile">
-							<Profile />
-						</Route>
+						<PrivateRouter exact path="/profile" component={Profile} />
 						<Route path="/co-operate" component={Operate} />
 						<Route path="/register" component={Register} />
 						<Route path="/demo" component={Demo} />

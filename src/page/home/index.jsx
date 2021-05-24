@@ -5,7 +5,6 @@ import CourseList from './component/CourseList';
 import Different from './component/Different';
 import Gallery from './component/Gallery';
 import Testimonial from './component/Testimonial';
-import PopupLogin from '../../component/PopupLogin';
 export default function Home() {
 	return (
 		<main className="homepage" id="main">
@@ -15,7 +14,6 @@ export default function Home() {
 			<Testimonial />
 			<Gallery />
 			<Action />
-			<PopupLogin />
 		</main>
 	);
 }

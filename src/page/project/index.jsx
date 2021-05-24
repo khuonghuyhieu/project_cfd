@@ -1,11 +1,9 @@
 import React from 'react';
-import PopupLogin from '../../component/PopupLogin';
 
 function Projects() {
 	return (
 		<React.Fragment>
 			<main className="projectpage" id="main">
-				<PopupLogin />
 				<section className="section-1">
 					<div className="container">
 						<h2 className="main-title">dự án</h2>

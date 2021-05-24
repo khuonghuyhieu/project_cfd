@@ -1,53 +1,56 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import reactDOM from 'react-dom';
-import { useState } from 'react';
+import useFormValidate from '../hook/useFormValidate';
+import useAuth from '../hook/useAuth';
 
 function PopupLogin() {
-	let [form, setForm] = useState({
-		email: '',
-		account: '',
-		pass: '',
-	});
-
-	let [error, setError] = useState({
-		email: '',
-		account: '',
-	});
+	let { form, error, InputChange, check } = useFormValidate(
+		{
+			username: '',
+			password: '',
+		},
+		{
+			rule: {
+				username: {
+					required: true,
+					pattern: 'email',
+				},
+				password: {
+					required: true,
+					min: 6,
+					max: 32,
+				},
+			},
+			message: {
+				username: {
+					required: 'Tên tài khoản không được bỏ trống',
+					pattern: 'Email hoặc số điện thoại không đúng định dạng',
+				},
+				password: {
+					required: 'Mật khẩu không được bỏ trống',
+				},
+			},
+		}
+	);
 
 	function InPutClose() {
 		document.getElementById('root1').style.display = 'none';
-		console.log('1');
 	}
+	let { handleLogin } = useAuth();
 
 	function OnSubmit() {
-		let errorOjb = {};
+		let errorOjb = check();
 
-		if (!form.account.trim()) {
-			errorOjb.account = 'Account là bắt buộc';
-		}
-
-		if (!form.email.trim()) {
-			errorOjb.email = 'Email là bắt buộc';
-		} else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
-			errorOjb.email = 'Email không đúng định dạng';
-		}
-
-		setError(errorOjb);
 		if (Object.keys(errorOjb).length === 0) {
-			console.log(form);
-			//call AIP
+			let res = handleLogin(form.username, form.password);
+			if (res) {
+				alert(res);
+			} else {
+				InPutClose();
+			}
 		}
 	}
 
-	function InPutChange(e) {
-		let name = e.target.name;
-		let value = e.target.value;
-
-		setForm({
-			...form,
-			[name]: value,
-		});
-	}
 	return reactDOM.createPortal(
 		<div className="popup-form popup-login">
 			<div className="wrap">
@@ -55,14 +58,21 @@ function PopupLogin() {
 				<div className="ct_login" style={{ display: 'block' }}>
 					<h2 className="title">Đăng nhập</h2>
 					<input
-						value={form.account}
-						name="account"
-						onChange={InPutChange}
+						value={form.username}
+						name="username"
+						onChange={InputChange}
 						type="text"
 						placeholder="Email / Số điện thoại"
 					/>
-					{error.account && <p className="error_text">{error.account}</p>}
-					<input value={form.pass} name="pass" type="password" placeholder="Mật khẩu" />
+					{error.username && <p className="error_text">{error.username}</p>}
+					<input
+						value={form.password}
+						name="password"
+						onChange={InputChange}
+						type="password"
+						placeholder="Mật khẩu"
+					/>
+					{error.password && <p className="error_text">{error.password}</p>}
 					<div className="remember">
 						<label className="btn-remember">
 							<div>
@@ -74,7 +84,9 @@ function PopupLogin() {
 							Quên mật khẩu?
 						</a>
 					</div>
-					<div className="btn rect main btn-login">đăng nhập</div>
+					<div className="btn rect main btn-login" onClick={OnSubmit}>
+						đăng nhập
+					</div>
 					<div className="text-register" style={{}}>
 						<strong>hoặc đăng ký bằng</strong>
 					</div>
@@ -94,14 +106,12 @@ function PopupLogin() {
 					<input
 						value={form.email}
 						name="email"
-						onChange={InPutChange}
+						onChange={InputChange}
 						type="text"
 						placeholder="Email"
 					/>
 					{error.email && <p className="error_text">{error.email}</p>}
-					<div onClick={OnSubmit} className="btn rect main btn-next">
-						Tiếp theo
-					</div>
+					<div className="btn rect main btn-next">Tiếp theo</div>
 					<div className="back" />
 					<div className="close">
 						<img src="img/close-icon.png" alt="" />

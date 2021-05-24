@@ -1,9 +1,6 @@
-import PopupLogin from '../../component/PopupLogin';
-
 function Coin() {
 	return (
 		<main className="paypage" id="main">
-			<PopupLogin />
 			<div className="container">
 				<section>
 					<h2 className="main-title">Giới thiệu Coin</h2>

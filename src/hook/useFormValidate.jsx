@@ -23,6 +23,9 @@ function useFormValidate(initialForm, validate) {
 	function check() {
 		let errorOjb = {};
 		let { rule, message } = validate;
+		if (!message) {
+			message = {};
+		}
 
 		for (let i in rule) {
 			let r = rule[i];
@@ -30,9 +33,10 @@ function useFormValidate(initialForm, validate) {
 
 			if (r.required && !form[i]?.trim()) {
 				errorOjb[i] = m?.required || 'Trường này không được để trống';
+				continue;
 			}
 
-			if (r.pattern && form[i]) {
+			if (r.pattern) {
 				// let pattern = r.pattern;  == row 34
 				let { pattern } = r;
 				if (pattern === 'email') pattern = emailPattern;
@@ -42,6 +46,16 @@ function useFormValidate(initialForm, validate) {
 
 				if (!pattern?.test(form[i])) {
 					errorOjb[i] = m?.pattern || 'Trường này không đúng định dạng';
+				}
+			}
+			if (r.min) {
+				if (form[i].length < r.min) {
+					errorOjb[i] = m?.min || `Trường này không được ít hơn ${r.min} ký tự`;
+				}
+			}
+			if (r.max) {
+				if (form[i].length > r.max) {
+					errorOjb[i] = m?.max || `Trường này không được nhiều hơn ${r.max} ký tự`;
 				}
 			}
 		}
