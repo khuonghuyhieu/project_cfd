@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import reactDOM from 'react-dom';
 import useFormValidate from '../hook/useFormValidate';
 import useAuth from '../hook/useAuth';
 
 function PopupLogin() {
+	let [loginError, setLoginError] = useState(null);
 	let { form, error, InputChange, check } = useFormValidate(
 		{
 			username: '',
@@ -36,18 +37,31 @@ function PopupLogin() {
 	function InPutClose() {
 		document.getElementById('root1').style.display = 'none';
 	}
-	let { handleLogin } = useAuth();
+	let { handleLogin } = useAuth(); //check lỗi bên AIP loginError
 
-	function OnSubmit() {
+	async function OnSubmit() {
 		let errorOjb = check();
 
 		if (Object.keys(errorOjb).length === 0) {
-			let res = handleLogin(form.username, form.password);
-			if (res) {
-				alert(res);
-			} else {
+			let res = await handleLogin(form.username, form.password);
+			if (res.success) {
+				// console.log('Hello');
 				InPutClose();
+			} else if (res.error) {
+				setLoginError(res.error);
 			}
+
+			// .then((res) => {
+			// 	console.log(res);
+			// 	if (res) {
+			// 		InPutClose();
+			// 	}
+			// });
+			// if (res) {
+			// 	alert(res);
+			// } else {
+			// 	// InPutClose();
+			// }
 		}
 	}
 
@@ -57,6 +71,8 @@ function PopupLogin() {
 				{/* login-form */}
 				<div className="ct_login" style={{ display: 'block' }}>
 					<h2 className="title">Đăng nhập</h2>
+					{/* Hiển thị lỗi loginError trên popuplogin */}
+					{loginError && <p className="error_text">{loginError}</p>}
 					<input
 						value={form.username}
 						name="username"

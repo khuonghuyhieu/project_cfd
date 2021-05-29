@@ -7,7 +7,6 @@ import PaymentHistory from './component/PaymentHistory';
 import Projected from './component/Projected';
 import { Route, Switch, NavLink, useRouteMatch, Redirect } from 'react-router-dom';
 import TopInfo from './component/TopInfo';
-import useAuth from '../../hook/useAuth';
 
 export default function Profile() {
 	// viết tab trong react

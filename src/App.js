@@ -22,9 +22,14 @@ import Project from './page/project';
 import Demo from './page/CountDown';
 import PopupLogin from './component/PopupLogin';
 import PrivateRouter from './component/PrivateRouter';
+import Auth from './service/auth';
 
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
+
+// Auth.update({
+// 	name: ""
+// })
 
 export let Context = React.createContext();
 
@@ -43,26 +48,87 @@ function App() {
 		localStorage.setItem('login', JSON.stringify(state.login));
 	}, [state.login]);
 
-	function handleLogin(username, password) {
-		if (username === 'admin@gmail.com' && password === '123456') {
-			setState({
-				...state,
-				login: {
-					name: 'Khương Huy Hiếu',
-					avatar: 'img/screenshot_1615217950.png',
-				},
-			});
+	async function handleLogin(username, password) {
+		//fetch là 1 bất đồng bộ
+		try {
+			let res = await Auth.login(username, password);
 
-			// localStorage.setItem(
-			// 	'login',
-			// 	JSON.stringify({
-			// 		name: 'Khương Huy Hiếu',
-			// 		avatar: 'img/screenshot_1615217950.png',
-			// 	})
-			// );
-		} else {
-			return 'Sai thông tin đăng nhập';
-		}
+			// let res = await fetch('http://cfd-reactjs.herokuapp.com/elearning/v4/login', {
+			// 	method: 'POST',
+			// 	body: JSON.stringify({
+			// 		username,
+			// 		password,
+			// 	}),
+			// 	headers: {
+			// 		'Content-Type': 'application/json',
+			// 	},
+			// });
+
+			// res = await res.json();
+			// console.log('Hello');
+			if (res.data) {
+				setState({
+					...state,
+					login: res.data,
+				});
+				console.log('Hello');
+				return {
+					success: true,
+				};
+			} else if (res.error) {
+				return {
+					error: res.error,
+				};
+
+				// setState({
+				// 	...state,
+				// 	loginError: res.error,
+				// });
+			}
+		} catch (err) {}
+
+		// .then((res) => {
+		// 	// console.log('res', res);
+		// 	return res.json(); // nếu trên này không trả về 1 promise thì ở dưới sẽ không then đc
+		// })
+		// .then((res) => {
+		// 	// console.log(res);
+		// 	if (res.data) {
+		// 		setState({
+		// 			...state,
+		// 			login: res.data,
+		// 		});
+		// 		callback();
+		// 	} else if (res.error) {
+		// 		setState({
+		// 			...state,
+		// 			loginError: res.error,
+		// 		});
+		// 	}
+		// })
+		// .catch((err) => {
+		// 	console.log('err', err);
+		// });
+
+		//xét cứng login
+		// if (username === 'admin@gmail.com' && password === '123456') {
+		// 	setState({
+		// 		...state,
+		// 		login: {
+		// 			name: 'Khương Huy Hiếu',
+		// 			avatar: 'img/screenshot_1615217950.png',
+		// 		},
+		// 	});
+		// 	// localStorage.setItem(
+		// 	// 	'login',
+		// 	// 	JSON.stringify({
+		// 	// 		name: 'Khương Huy Hiếu',
+		// 	// 		avatar: 'img/screenshot_1615217950.png',
+		// 	// 	})
+		// 	// );
+		// } else {
+		// 	return 'Sai thông tin đăng nhập';
+		// }
 	}
 
 	function handleLogout() {

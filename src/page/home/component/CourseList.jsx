@@ -1,7 +1,7 @@
 import React from 'react';
 import { CourseItem } from '../../../component';
 
-export default function CourseList() {
+export default function CourseList({ online, offline }) {
 	return (
 		<React.Fragment>
 			<section className="section-courseoffline">
@@ -14,54 +14,9 @@ export default function CourseList() {
 						<h2 className="main-title">Khóa học Offline</h2>
 					</div>
 					<div className="list row">
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-						/>
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="dang-dien-ra"
-						/>
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="sap-ket-thuc"
-						/>
-						<CourseItem
-							name="React-Redux"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-						/>
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-						/>
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-						/>
+						{offline.map((value, i) => (
+							<CourseItem key={value.slug} {...value} />
+						))}
 					</div>
 				</div>
 			</section>
@@ -71,30 +26,9 @@ export default function CourseList() {
 						<h2 className="main-title">Khóa học Online</h2>
 					</div>
 					<div className="list row">
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-						/>
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="sap-dien-ra"
-						/>
-						<CourseItem
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="dang-dien-ra"
-						/>
+						{online.map((value, i) => (
+							<CourseItem key={value.slug} {...value} />
+						))}
 					</div>
 					<div className="text-deco">C</div>
 				</div>

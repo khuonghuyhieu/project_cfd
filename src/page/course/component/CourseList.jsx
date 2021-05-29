@@ -1,7 +1,7 @@
 import React from 'react';
 import { CourseItem } from '../../../component';
 
-function CourseList() {
+function CourseList({ online, offline }) {
 	return (
 		<React.Fragment>
 			<section className="section-1">
@@ -16,53 +16,9 @@ function CourseList() {
 						<h2 className="main-title">ONLINE</h2>
 					</div>
 					<div className="list row">
-						<CourseItem 
-                            name="Javascript"
-							image="img/img.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-                        />
-						<CourseItem 
-							name="Javascript"
-							image="img/img2.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="dang-dien-ra"
-							/>
-						<CourseItem 
-							name="Javascript"
-							image="img/img1.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="dang-dien-ra"
-						/>
-						<CourseItem 
-							name="Javascript"
-							image="img/img3.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="dang-dien-ra"
-						/>
-						<CourseItem 
-							name="Javascript"
-							image="img/img4.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-						/>
-						<CourseItem 
-							name="Javascript"
-							image="img/img5.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-						/>
+						{online.map((value, i) => {
+							<CourseItem key={value.slug} {...value} />;
+						})}
 					</div>
 				</div>
 			</section>
@@ -73,29 +29,9 @@ function CourseList() {
 						<h2 className="main-title">OFFLINE</h2>
 					</div>
 					<div className="list row">
-						<CourseItem 
-							name="Javascript"
-							image="img/img6.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="dang-dien-ra"
-						/>
-						<CourseItem 
-							name="Javascript"
-							image="img/img7.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-							status="da-ket-thuc"
-						/>
-						<CourseItem 
-							name="Javascript"
-							image="img/img8.png"
-							description="One of the best corporate fashion brands in Sydney "
-							teacher_avatar="img/avt.png"
-							teacher_name="Trần Nghĩa"
-						/>
+						{offline.map((value, i) => {
+							<CourseItem key={value.slug} {...value} />;
+						})}
 					</div>
 					<div className="text-deco">C</div>
 				</div>
