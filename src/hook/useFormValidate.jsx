@@ -13,6 +13,10 @@ function useFormValidate(initialForm, validate) {
 	function InputChange(e) {
 		let name = e.target.name;
 		let value = e.target.value;
+		let type = e.target.type;
+		if (type === 'checkbox') {
+			value = e.target.checked;
+		}
 
 		setForm({
 			...form,

@@ -44,11 +44,11 @@ function PopupLogin() {
 
 		if (Object.keys(errorOjb).length === 0) {
 			let res = await handleLogin(form.username, form.password);
-			if (res.success) {
+			if (res?.success) {
 				// console.log('Hello');
 				InPutClose();
-			} else if (res.error) {
-				setLoginError(res.error);
+			} else if (res?.error) {
+				setLoginError(res?.error);
 			}
 
 			// .then((res) => {

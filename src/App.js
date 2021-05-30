@@ -27,9 +27,9 @@ import Auth from './service/auth';
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
 
-// Auth.update({
-// 	name: ""
-// })
+Auth.update({
+	name: 'Khương Huy Hiếu',
+}).then((res) => {});
 
 export let Context = React.createContext();
 
@@ -51,8 +51,25 @@ function App() {
 	async function handleLogin(username, password) {
 		//fetch là 1 bất đồng bộ
 		try {
-			let res = await Auth.login(username, password);
-
+			let res = await Auth.login({ username, password });
+			if (res.data) {
+				setState({
+					...state,
+					login: res.data,
+				});
+				// console.log('Hello');
+				return {
+					success: true,
+				};
+			} else if (res.error) {
+				return {
+					error: res.error,
+				};
+			}
+			// setState({
+			// 	...state,
+			// 	loginError: res.error,
+			// });
 			// let res = await fetch('http://cfd-reactjs.herokuapp.com/elearning/v4/login', {
 			// 	method: 'POST',
 			// 	body: JSON.stringify({
@@ -66,25 +83,6 @@ function App() {
 
 			// res = await res.json();
 			// console.log('Hello');
-			if (res.data) {
-				setState({
-					...state,
-					login: res.data,
-				});
-				console.log('Hello');
-				return {
-					success: true,
-				};
-			} else if (res.error) {
-				return {
-					error: res.error,
-				};
-
-				// setState({
-				// 	...state,
-				// 	loginError: res.error,
-				// });
-			}
 		} catch (err) {}
 
 		// .then((res) => {
@@ -167,7 +165,7 @@ function App() {
 						<Route path="/detail/:slug" component={Detail} />
 						<PrivateRouter exact path="/profile" component={Profile} />
 						<Route path="/co-operate" component={Operate} />
-						<Route path="/register" component={Register} />
+						<Route path="/register/:slug" component={Register} />
 						<Route path="/demo" component={Demo} />
 						<Route exact path="/" component={Home} />
 						<Route component={Page404} />

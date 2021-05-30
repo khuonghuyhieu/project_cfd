@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useParams } from 'react-router';
 import useFormValidate from '../../../hook/useFormValidate';
+import CourseApi from '../../../service/courseApi';
 
 export default function FormRegister() {
+	let { slug } = useParams();
 	let { form, error, InputChange, check } = useFormValidate(
 		{
 			name: '',
@@ -9,6 +12,7 @@ export default function FormRegister() {
 			email: '',
 			fb: '',
 			coin: false,
+			pay: '',
 			payment: 'chuyen-khoan',
 		},
 		{
@@ -53,7 +57,7 @@ export default function FormRegister() {
 		let errorOjb = check();
 
 		if (Object.keys(errorOjb).length === 0) {
-			console.log(form);
+			let res = CourseApi.register(form, slug);
 		}
 	}
 

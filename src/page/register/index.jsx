@@ -1,24 +1,29 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import CourseApi from '../../service/courseApi';
 import FormRegister from './component/FormRegister';
+import RegisterInfo from './component/RegisterInfo';
 
 export default function Register() {
+	let { slug } = useParams();
+	console.log(slug);
+	let [course, setCourse] = useState();
+
+	useEffect(async () => {
+		let res = await CourseApi.detail(slug);
+		if (res.data) {
+			setCourse(res.data);
+		}
+	}, [slug]);
+
 	return (
 		<main className="register-course" id="main">
 			<section>
 				<div className="container">
 					<div className="wrap container">
 						<div className="main-sub-title">ĐĂNG KÝ</div>
-						<h1 className="main-title">Thực chiến front-end căn bản </h1>
-						<div className="main-info">
-							<div className="date">
-								<strong>Khai giảng:</strong> 15/11/2020
-							</div>
-							<div className="time">
-								<strong>Thời lượng:</strong> 18 buổi
-							</div>
-							<div className="time">
-								<strong>Học phí:</strong> 6.000.000 VND
-							</div>
-						</div>
+						<h1 className="main-title">{course?.title}</h1>
+						<RegisterInfo {...course} />
 						<FormRegister />
 					</div>
 				</div>

@@ -41,7 +41,9 @@ export function CourseItem({ title, short_description, thumbnail, teacher, cours
 						</div>
 						<div className="name">{teacher.title}</div>
 					</div>
-					<div className="register-btn">Đăng Ký</div>
+					<Link to={`/register/${slug}`} className="register-btn">
+						Đăng Ký
+					</Link>
 				</div>
 			</div>
 		</div>
