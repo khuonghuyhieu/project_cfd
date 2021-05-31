@@ -145,23 +145,16 @@ function App() {
 					{/* chia Header những trang dưới có thể dống v khi không sài cái thư viên react-router-dom */}
 					<Header />
 					<PopupLogin />
+
 					{/* cắt components từng trang bằng router */}
-					<Switch>
-						{/* cách 1 */}
+					{/* <Switch>
 						<Route path="/projects" component={Project} />
 						<Route path="/payment" component={Payment} />
 						<Route path="/team" component={Team} />
-						{/* cách 2 */}
-						{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
 						<Route path="/coin" component={Coin} />
 						<Route path="/course" component={Course} />
-						{/* cách 3 */}
-						{/* <Route path="/faq" >
-						<Faq />
-					</Route > */}
 						<Route path="/faq" component={Faq} />
 						<Route path="/email" component={Email} />
-						{/* /:slug */}
 						<Route path="/detail/:slug" component={Detail} />
 						<PrivateRouter exact path="/profile" component={Profile} />
 						<Route path="/co-operate" component={Operate} />
@@ -169,8 +162,14 @@ function App() {
 						<Route path="/demo" component={Demo} />
 						<Route exact path="/" component={Home} />
 						<Route component={Page404} />
-					</Switch>
+					</Switch> */}
 					<Footer />
+					{/* cách 3 */}
+					{/* <Route path="/faq" >
+						<Faq />
+						</Route > */}
+					{/* cách 2 */}
+					{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
 				</div>
 			</BrowserRouter>
 		</Context.Provider>
