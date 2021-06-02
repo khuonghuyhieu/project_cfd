@@ -23,8 +23,8 @@ import Demo from './page/CountDown';
 import PopupLogin from './component/PopupLogin';
 import PrivateRouter from './component/PrivateRouter';
 import Auth from './service/auth';
-import { routerConfig } from './core/routerConfig';
-import routers from './router';
+// import { routerConfig } from './core/routerConfig';
+// import routers from './router';
 
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
@@ -158,7 +158,7 @@ function App() {
 						<Route path="/faq" component={Faq} />
 						<Route path="/email" component={Email} />
 						<Route path="/detail/:slug" component={Detail} />
-						<PrivateRouter exact path="/profile" component={Profile} />
+						<PrivateRouter path="/profile" component={Profile} />
 						<Route path="/co-operate" component={Operate} />
 						<Route path="/register/:slug" component={Register} />
 						<Route path="/demo" component={Demo} />

@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import PopupLogin from '../../component/PopupLogin';
-// import Info from './component/Info';
-// import MyCoin from './component/MyCoin';
-// import MyCourse from './component/MyCourse';
-// import PaymentHistory from './component/PaymentHistory';
-// import Projected from './component/Projected';
+import Info from './component/Info';
+import MyCoin from './component/MyCoin';
+import MyCourse from './component/MyCourse';
+import PaymentHistory from './component/PaymentHistory';
+import Projected from './component/Projected';
 import { Route, Switch, NavLink, useRouteMatch, Redirect } from 'react-router-dom';
 import TopInfo from './component/TopInfo';
 
@@ -50,15 +50,15 @@ export default function Profile({ children }) {
 							<NavLink to={`${path}/mycoin`}>Quản lý COIN của tôi</NavLink>
 						</div>
 						<div className="tab-content">
-							{children}
+							{/* {children} */}
 							{/* Router lồng */}
-							{/* <Switch>
+							<Switch>
 								<Route path={`${path}/mycourse`} component={MyCourse} />
 								<Route path={`${path}/projected`} component={Projected} />
 								<Route path={`${path}/paymenthistory`} component={PaymentHistory} />
 								<Route path={`${path}/mycoin`} component={MyCoin} />
 								<Route component={Info} />
-							</Switch> */}
+							</Switch>
 						</div>
 					</div>
 				</div>
