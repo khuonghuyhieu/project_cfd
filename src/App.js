@@ -23,6 +23,8 @@ import Demo from './page/CountDown';
 import PopupLogin from './component/PopupLogin';
 import PrivateRouter from './component/PrivateRouter';
 import Auth from './service/auth';
+import { routerConfig } from './core/routerConfig';
+import routers from './router';
 
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
@@ -147,7 +149,7 @@ function App() {
 					<PopupLogin />
 
 					{/* cắt components từng trang bằng router */}
-					{/* <Switch>
+					<Switch>
 						<Route path="/projects" component={Project} />
 						<Route path="/payment" component={Payment} />
 						<Route path="/team" component={Team} />
@@ -162,7 +164,9 @@ function App() {
 						<Route path="/demo" component={Demo} />
 						<Route exact path="/" component={Home} />
 						<Route component={Page404} />
-					</Switch> */}
+					</Switch>
+
+					{/* {routerConfig(routers)} */}
 					<Footer />
 					{/* cách 3 */}
 					{/* <Route path="/faq" >

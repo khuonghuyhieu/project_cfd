@@ -12,26 +12,57 @@ import Course from './page/course';
 import Team from './page/team';
 import Payment from './page/payment';
 import Project from './page/project';
+import Info from './page/profile/component/Info';
+import MyCoin from './page/profile/component/MyCoin';
+import MyCourse from './page/profile/component/MyCourse';
+import PaymentHistory from './page/profile/component/PaymentHistory';
+import Projected from './page/profile/component/Projected';
 
 let routers = [
 	{
 		component: MainLayout,
-		path: '/',
 		routers: [
-			{
-				component: Home,
-				path: '',
-				exact: true,
-			},
 			{
 				component: Team,
 				path: '/team',
 				exact: true,
 			},
 			{
-				component: Team,
+				component: Operate,
 				path: '/co-operate',
 				exact: true,
+			},
+			{
+				component: Home,
+				path: '/',
+				exact: true,
+			},
+			{
+				component: Profile,
+				path: '/profile',
+				auth: true,
+				routers: [
+					{
+						component: Info,
+						exact: true,
+					},
+					{
+						component: MyCoin,
+						path: '/mycoin',
+					},
+					{
+						component: MyCourse,
+						path: '/mycourse',
+					},
+					{
+						component: PaymentHistory,
+						path: '/paymenthistory',
+					},
+					{
+						component: Projected,
+						path: '/projected',
+					},
+				],
 			},
 		],
 	},
