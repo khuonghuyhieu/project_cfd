@@ -1,7 +1,10 @@
 import React, { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import useAuth from '../hook/useAuth';
 import useDelayLink from '../hook/useDelayLink';
+import store from '../redux';
+import { logoutAction } from '../redux/action/authAction';
 
 export function Header() {
 	function navMenu() {
@@ -9,7 +12,8 @@ export function Header() {
 	}
 	// sử dụng hook để làm loading
 	let delayLink = useDelayLink(); // --> onclick cái biến vào thẻ link.
-
+	let dispatch = useDispatch();
+	let { login } = useSelector((store) => store.auth);
 	function overlayClick() {
 		document.body.classList.remove('menu-is-show');
 	}
@@ -19,7 +23,12 @@ export function Header() {
 	// 	avatar: 'img/screenshot_1615217950.png',
 	// };
 
-	let { login, handleLogout } = useAuth();
+	// let { login, handleLogout } = useAuth();
+	function logout(e) {
+		e.preventDefault();
+		// dispatch({ type: 'LOGOUT' });
+		dispatch(logoutAction());
+	}
 
 	return (
 		<div>
@@ -54,10 +63,11 @@ export function Header() {
 									<Link to="/profile/mycourse">Khóa học của tôi</Link>
 									<Link
 										to="#"
-										onClick={(e) => {
-											e.preventDefault();
-											handleLogout();
-										}}
+										// onClick={(e) => {
+										// 	e.preventDefault();
+										// 	handleLogout();
+										// }}
+										onClick={logout}
 									>
 										Đăng xuất
 									</Link>

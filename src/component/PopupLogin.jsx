@@ -2,9 +2,12 @@ import React, { useContext, useState } from 'react';
 import reactDOM from 'react-dom';
 import useFormValidate from '../hook/useFormValidate';
 import useAuth from '../hook/useAuth';
+import { useDispatch, useSelector } from 'react-redux';
+import Auth from '../service/auth';
+import { loginAction } from '../redux/action/authAction';
 
 function PopupLogin() {
-	let [loginError, setLoginError] = useState(null);
+	// let [loginError, setLoginError] = useState(null);
 	let { form, error, InputChange, check } = useFormValidate(
 		{
 			username: '',
@@ -34,22 +37,53 @@ function PopupLogin() {
 		}
 	);
 
+	let dispatch = useDispatch();
+
 	function InPutClose() {
 		document.getElementById('root1').style.display = 'none';
 	}
-	let { handleLogin } = useAuth(); //check lỗi bên AIP loginError
+	//context API
+	// let { handleLogin } = useAuth(); //check lỗi bên AIP loginError
+	//quản lý error bằng redux
+	let { loginError } = useSelector((store) => store.auth);
 
 	async function OnSubmit() {
 		let errorOjb = check();
 
 		if (Object.keys(errorOjb).length === 0) {
-			let res = await handleLogin(form.username, form.password);
-			if (res?.success) {
-				// console.log('Hello');
-				InPutClose();
-			} else if (res?.error) {
-				setLoginError(res?.error);
-			}
+			// dùng action để cho code trong các component không có nhiều logic
+			dispatch(
+				loginAction(
+					{
+						username: form.username,
+						password: form.password,
+					},
+					InPutClose
+				)
+			);
+
+			//react redux
+			// let res = await Auth.login({
+			// 	username: form.username,
+			// 	password: form.password,
+			// });
+			// if (res.data) {
+			// 	// dispatch({
+			// 	// 	type: 'LOGIN',
+			// 	// 	payload: res.data,
+			// 	// });
+			// 	dispatch(loginAction(res.data));
+			// 	InPutClose();
+			// } else if (res.error) {
+			// 	setLoginError(res.error);
+			// }
+			//context API
+			// let res = await handleLogin(form.username, form.password);
+			// if (res?.success) {
+			// 	InPutClose();
+			// } else if (res?.error) {
+			// 	setLoginError(res?.error);
+			// }
 
 			// .then((res) => {
 			// 	console.log(res);

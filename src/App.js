@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'; //có thể {creatContext}
+import { Provider } from 'react-redux';
 
 import './assets/style/custom.scss';
 
@@ -23,15 +24,16 @@ import Demo from './page/CountDown';
 import PopupLogin from './component/PopupLogin';
 import PrivateRouter from './component/PrivateRouter';
 import Auth from './service/auth';
+import store from './redux';
 // import { routerConfig } from './core/routerConfig';
 // import routers from './router';
 
 // import Header from "./component/Header";
 // import Footer from "./component/Footer";
 
-Auth.update({
-	name: 'Khương Huy Hiếu',
-}).then((res) => {});
+// Auth.update({
+// 	name: 'Khương Huy Hiếu',
+// }).then((res) => {});
 
 export let Context = React.createContext();
 
@@ -141,42 +143,44 @@ function App() {
 	}
 
 	return (
-		<Context.Provider value={{ ...state, handleLogin, handleLogout }}>
-			<BrowserRouter>
-				<div className="App">
-					{/* chia Header những trang dưới có thể dống v khi không sài cái thư viên react-router-dom */}
-					<Header />
-					<PopupLogin />
+		<Provider store={store}>
+			<Context.Provider value={{ ...state, handleLogin, handleLogout }}>
+				<BrowserRouter>
+					<div className="App">
+						{/* chia Header những trang dưới có thể dống v khi không sài cái thư viên react-router-dom */}
+						<Header />
+						<PopupLogin />
 
-					{/* cắt components từng trang bằng router */}
-					<Switch>
-						<Route path="/projects" component={Project} />
-						<Route path="/payment" component={Payment} />
-						<Route path="/team" component={Team} />
-						<Route path="/coin" component={Coin} />
-						<Route path="/course" component={Course} />
-						<Route path="/faq" component={Faq} />
-						<Route path="/email" component={Email} />
-						<Route path="/detail/:slug" component={Detail} />
-						<PrivateRouter path="/profile" component={Profile} />
-						<Route path="/co-operate" component={Operate} />
-						<Route path="/register/:slug" component={Register} />
-						<Route path="/demo" component={Demo} />
-						<Route exact path="/" component={Home} />
-						<Route component={Page404} />
-					</Switch>
+						{/* cắt components từng trang bằng router */}
+						<Switch>
+							<Route path="/projects" component={Project} />
+							<Route path="/payment" component={Payment} />
+							<Route path="/team" component={Team} />
+							<Route path="/coin" component={Coin} />
+							<Route path="/course" component={Course} />
+							<Route path="/faq" component={Faq} />
+							<Route path="/email" component={Email} />
+							<Route path="/detail/:slug" component={Detail} />
+							<PrivateRouter path="/profile" component={Profile} />
+							<Route path="/co-operate" component={Operate} />
+							<Route path="/register/:slug" component={Register} />
+							<Route path="/demo" component={Demo} />
+							<Route exact path="/" component={Home} />
+							<Route component={Page404} />
+						</Switch>
 
-					{/* {routerConfig(routers)} */}
-					<Footer />
-					{/* cách 3 */}
-					{/* <Route path="/faq" >
+						{/* {routerConfig(routers)} */}
+						<Footer />
+						{/* cách 3 */}
+						{/* <Route path="/faq" >
 						<Faq />
 						</Route > */}
-					{/* cách 2 */}
-					{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
-				</div>
-			</BrowserRouter>
-		</Context.Provider>
+						{/* cách 2 */}
+						{/* <Route path="/course" render = {(prop) => <Course /> } /> */}
+					</div>
+				</BrowserRouter>
+			</Context.Provider>
+		</Provider>
 	);
 }
 
