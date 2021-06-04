@@ -163,7 +163,7 @@ function App() {
 							<Route path="/detail/:slug" component={Detail} />
 							<PrivateRouter path="/profile" component={Profile} />
 							<Route path="/co-operate" component={Operate} />
-							<Route path="/register/:slug" component={Register} />
+							<PrivateRouter path="/register/:slug" component={Register} />
 							<Route path="/demo" component={Demo} />
 							<Route exact path="/" component={Home} />
 							<Route component={Page404} />

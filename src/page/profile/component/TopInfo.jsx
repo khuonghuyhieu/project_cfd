@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
 import useAuth from '../../../hook/useAuth';
 
 function TopInfo() {
-	let { login } = useAuth();
+	// let { login } = useAuth();
+	let { login } = useSelector((store) => store.auth);
 
 	return (
 		<div className="top-info">

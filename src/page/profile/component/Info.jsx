@@ -1,13 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import useFormValidate from '../../../hook/useFormValidate';
+import { updateAction } from '../../../redux/action/authAction';
 function Info() {
+	let { login } = useSelector((store) => store.auth);
+
 	let { form, error, InputChange, check } = useFormValidate(
 		{
-			name: '',
-			phone: '',
-			fb: '',
-			sk: '',
+			name: login.name,
+			phone: login.phone,
+			fb: login.fb,
+			sk: login.sk,
 		},
 		{
 			rule: {
@@ -45,11 +49,14 @@ function Info() {
 		}
 	);
 
+	let dispatch = useDispatch();
+
 	function OnSubmit() {
 		let errorOjb = check();
 
 		if (Object.keys(errorOjb).length === 0) {
-			console.log(form);
+			// console.log(form);
+			dispatch(updateAction(form));
 		}
 	}
 

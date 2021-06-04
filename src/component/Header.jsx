@@ -14,6 +14,7 @@ export function Header() {
 	let delayLink = useDelayLink(); // --> onclick cái biến vào thẻ link.
 	let dispatch = useDispatch();
 	let { login } = useSelector((store) => store.auth);
+	console.log(login);
 	function overlayClick() {
 		document.body.classList.remove('menu-is-show');
 	}
